@@ -4,7 +4,7 @@ const QUOTES = [
     "play": "Hamlet"
   },
   {
-    "text": "All the world’s a stage, and all the men and women merely players.",
+    "text": "All the world's a stage, and all the men and women merely players.",
     "play": "As You Like It"
   },
   {
@@ -37,7 +37,7 @@ const QUOTES = [
   },
   {
     "text": "The course of true love never did run smooth.",
-    "play": "A Midsummer Night’s Dream"
+    "play": "A Midsummer Night's Dream"
   },
   {
     "text": "Brevity is the soul of wit.",
@@ -49,14 +49,14 @@ const QUOTES = [
   },
   {
     "text": "Love looks not with the eyes, but with the mind.",
-    "play": "A Midsummer Night’s Dream"
+    "play": "A Midsummer Night's Dream"
   },
   {
     "text": "The better part of valour is discretion.",
     "play": "Henry IV, Part 1"
   },
   {
-    "text": "What’s done cannot be undone.",
+    "text": "What's done cannot be undone.",
     "play": "Macbeth"
   },
   {
@@ -73,7 +73,7 @@ const QUOTES = [
   },
   {
     "text": "Though she be but little, she is fierce.",
-    "play": "A Midsummer Night’s Dream"
+    "play": "A Midsummer Night's Dream"
   },
   {
     "text": "This above all: to thine own self be true.",
@@ -96,7 +96,7 @@ const QUOTES = [
     "play": "Julius Caesar"
   },
   {
-    "text": "There’s daggers in men’s smiles.",
+    "text": "There's daggers in men's smiles.",
     "play": "Macbeth"
   },
   {
@@ -120,11 +120,11 @@ const QUOTES = [
     "play": "Othello"
   },
   {
-    "text": "O brave new world, that has such people in’t!",
+    "text": "O brave new world, that has such people in't!",
     "play": "The Tempest"
   },
   {
-    "text": "The play’s the thing wherein I’ll catch the conscience of the king.",
+    "text": "The play's the thing wherein I'll catch the conscience of the king.",
     "play": "Hamlet"
   },
   {
@@ -148,7 +148,7 @@ const QUOTES = [
     "play": "Julius Caesar"
   },
   {
-    "text": "There’s small choice in rotten apples.",
+    "text": "There's small choice in rotten apples.",
     "play": "The Taming of the Shrew"
   },
   {
@@ -160,7 +160,7 @@ const QUOTES = [
     "play": "Henry V"
   },
   {
-    "text": "What’s past is prologue.",
+    "text": "What's past is prologue.",
     "play": "The Tempest"
   },
   {
@@ -188,7 +188,7 @@ const QUOTES = [
     "play": "As You Like It"
   },
   {
-    "text": "Look like the innocent flower, but be the serpent under’t.",
+    "text": "Look like the innocent flower, but be the serpent under't.",
     "play": "Macbeth"
   },
   {
@@ -196,7 +196,7 @@ const QUOTES = [
     "play": "Richard III"
   },
   {
-    "text": "Men’s evil manners live in brass; their virtues we write in water.",
+    "text": "Men's evil manners live in brass; their virtues we write in water.",
     "play": "Henry VIII"
   },
   {

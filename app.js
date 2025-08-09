@@ -1,13 +1,6 @@
 // Game logic for Shakespeare Typing Game
 // Expects QUOTES = [{ text: '...', play: '...' }, ...]
 
-// Normalise curly quotes/apostrophes to straight equivalents for robust comparison
-function normaliseQuotes(str) {
-  return String(str)
-    .replace(/[’‘]/g, "'")
-    .replace(/[“”]/g, '"');
-}
-
 // Utility: sample without replacement bag
 let bag = [];
 function nextQuote() {
@@ -45,7 +38,7 @@ let correctChars = 0;
 let roundScore = 0;
 let totalScore = 0;
 let highScore = Number(localStorage.getItem('highScore') || 0);
-if (highScoreEl) highScoreEl.textContent = highScore;
+highScoreEl.textContent = highScore;
 
 function renderQuote(text) {
   quoteEl.innerHTML = text.split('').map(ch => `<span>${ch}</span>`).join('');
@@ -88,5 +81,126 @@ function finishRound() {
   const diffPct = Math.round(((wpm - avg) / avg) * 100);
   finalVsAvg.textContent = diffPct >= 0 ? `${diffPct}% faster than the average person` : `${Math.abs(diffPct)}% slower than the average person`;
 
-  // Base score. Accuracy matters more than ego
-  roundScore = Math.max(0, Math.round
+  // Base score: prioritize accuracy, then speed (simple balanced formula)
+  roundScore = Math.max(0, Math.round(acc * (wpm / 2)));
+  totalScore += roundScore;
+
+  finalScore.textContent = `Round score: ${roundScore} | Total: ${totalScore}`;
+
+  // Bonus question if play known
+  if (current.play) {
+    buildBonus(current);
+    bonusBlock.style.display = 'block';
+  } else {
+    bonusBlock.style.display = 'none';
+  }
+
+  overlay.style.display = 'flex';
+}
+
+function buildBonus(q) {
+  bonusQuote.textContent = `“${q.text}”`;
+
+  // Build multiple-choice options: correct + 3 random distinct plays
+  const plays = Array.from(new Set(QUOTES.map(x => x.play).filter(Boolean)));
+  const choices = new Set([q.play]);
+  while (choices.size < 4 && plays.length) {
+    const p = plays[Math.floor(Math.random() * plays.length)];
+    choices.add(p);
+  }
+  const shuffled = [...choices].sort(() => Math.random() - 0.5);
+
+  bonusForm.innerHTML = '';
+  shuffled.forEach(p => {
+    const id = `opt_${Math.random().toString(36).slice(2,8)}`;
+    const wrap = document.createElement('label');
+    wrap.innerHTML = `<input type="radio" name="bonus" value="${p}" id="${id}"> ${p}`;
+    bonusForm.appendChild(wrap);
+  });
+
+  bonusResult.textContent = '';
+}
+
+submitBonus?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const sel = bonusForm.querySelector('input[name="bonus"]:checked');
+  if (!sel) {
+    bonusResult.textContent = 'Pick one answer.';
+    return;
+  }
+  const choice = sel.value;
+  if (choice === current.play) {
+    const bonus = 200; // flat bonus
+    totalScore += bonus;
+    bonusResult.textContent = `Correct. +${bonus} bonus points.`;
+  } else {
+    bonusResult.textContent = `Nope. Correct answer: ${current.play}.`;
+  }
+  scoreEl.textContent = totalScore;
+  finalScore.textContent = `Round score: ${roundScore} | Total: ${totalScore}`;
+
+  if (totalScore > highScore) {
+    highScore = totalScore;
+    localStorage.setItem('highScore', String(highScore));
+    highScoreEl.textContent = highScore;
+  }
+});
+
+// Typing input handling
+inputEl.addEventListener('input', (e) => {
+  const input = e.target.value;
+  const spans = document.querySelectorAll('#quote span');
+
+  if (!startTime) {
+    startTime = Date.now();
+    timer = setInterval(updateStats, 200);
+  }
+
+  correctChars = 0;
+  spans.forEach((span, i) => {
+    const ch = input[i];
+    if (ch == null) {
+      span.classList.remove('correct', 'incorrect');
+    } else if (ch === span.textContent) {
+      span.classList.add('correct');
+      span.classList.remove('incorrect');
+      correctChars++;
+    } else {
+      span.classList.add('incorrect');
+      span.classList.remove('correct');
+      if (strictMode.checked) {
+        // prevent drifting by blocking extra wrong chars
+        e.target.value = input.slice(0, i + 1);
+      }
+    }
+  });
+
+  // If user has matched the full text exactly, auto-finish
+  if (input === current.text) {
+    finishRound();
+  }
+});
+
+// Enter to finish
+inputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    finishRound();
+  } else if (e.key === 'Escape') {
+    e.preventDefault();
+    overlay.style.display = 'none';
+    newRound();
+  }
+});
+
+nextBtn.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  newRound();
+});
+newBtn.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  newRound();
+});
+
+// Initialize
+newRound();

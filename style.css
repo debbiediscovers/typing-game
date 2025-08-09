@@ -1,0 +1,56 @@
+/* Basic styling */
+:root {
+  --bg: #111;
+  --fg: #fff;
+  --muted: #aaa;
+  --green: #6ee7b7;
+  --red: #f87171;
+  --panel: #1e1e1e;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: monospace;
+  background: var(--bg);
+  color: var(--fg);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  margin: 0;
+}
+header, footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 18px; background: #0c0c0c; border-bottom: 1px solid #222;
+}
+footer { border-top: 1px solid #222; border-bottom: none; gap: 10px; }
+#controls { display: flex; gap: 12px; align-items: center; }
+#controls button { padding: 6px 10px; border-radius: 8px; border: none; background: var(--green); color: #0b0b0b; cursor: pointer; font-weight: 700; }
+main { padding: 20px; display: grid; justify-items: center; align-content: start; gap: 16px; }
+#quote { font-size: 1.5rem; max-width: 900px; line-height: 1.6; word-wrap: break-word; }
+.correct { color: #37d39f; }
+.incorrect { color: var(--red); }
+textarea {
+  width: 100%; max-width: 900px; height: 120px; font-size: 1.1rem; padding: 12px;
+  background: #222; color: var(--fg); border: 1px solid #333; outline: none; border-radius: 8px; resize: none;
+}
+#stats { font-size: 1rem; color: var(--muted); }
+#stats span { color: var(--fg); }
+#resultOverlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.75);
+  display: none; align-items: center; justify-content: center; z-index: 1000;
+}
+#resultCard {
+  background: var(--panel); border: 2px solid var(--green);
+  box-shadow: 0 0 30px rgba(110,231,183,0.5);
+  border-radius: 14px; padding: 26px 28px; text-align: center; max-width: 560px; width: 92%;
+}
+#resultCard .score { font-size: 2.2rem; font-weight: 800; margin: 8px 0 6px; }
+#resultCard .sub { opacity: .95; margin-bottom: 10px; }
+#resultCard button {
+  background: var(--green); color: #0b0b0b; border: none; border-radius: 10px;
+  padding: 10px 14px; font-weight: 700; cursor: pointer; margin-top: 10px;
+}
+#bonus { text-align: left; background: #151515; padding: 12px; border-radius: 10px; margin-top: 12px; }
+#bonus h3 { margin: 0 0 8px 0; font-size: 1.05rem; color: #93e6bf; }
+.choices { display: grid; gap: 6px; }
+.choices label { display: flex; gap: 8px; align-items: center; cursor: pointer; }
+.tip { color: var(--muted); font-size: .9rem; }

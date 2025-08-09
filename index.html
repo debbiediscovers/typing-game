@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shakespeare Typing Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Shakespeare Typing Game</h1>
+    <div id="controls">
+      <button id="newBtn" title="New quote (Esc)">New</button>
+      <label><input type="checkbox" id="strictMode" /> Strict mode</label>
+    </div>
+  </header>
+
+  <main>
+    <div id="quote"></div>
+    <textarea id="input" placeholder="Start typing here... Press Enter to submit."></textarea>
+    <div id="stats">Time: 0s | WPM: 0 | Accuracy: 100% | Score: <span id="score">0</span></div>
+  </main>
+
+  <div id="resultOverlay">
+    <div id="resultCard">
+      <h2>Round complete</h2>
+      <div class="score" id="finalWPM">0 WPM</div>
+      <div class="sub" id="finalVsAvg">0% faster than the average person</div>
+      <div class="sub" id="finalAcc">Accuracy: 0%</div>
+      <div class="sub" id="finalTime">Time: 0s</div>
+      <div id="finalScore"></div>
+
+      <div id="bonus" style="display:none;">
+        <h3>Bonus: Which Shakespeare play is this from?</h3>
+        <div id="bonusQuote" class="sub" style="opacity:.85;"></div>
+        <form id="bonusForm" class="choices"></form>
+        <div id="bonusResult"></div>
+        <button id="submitBonus">Submit answer</button>
+      </div>
+
+      <div id="footerBtns">
+        <button id="nextBtn">Next quote</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>High score: <span id="highScore">0</span></div>
+    <div class="tip">Tip: Press Enter to finish a round. Press Esc for a new quote.</div>
+  </footer>
+
+  <script src="quotes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
